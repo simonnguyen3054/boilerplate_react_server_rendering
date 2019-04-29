@@ -22777,7 +22777,18 @@ var Home = function Home() {
   return _react2.default.createElement(
     "div",
     null,
-    "Home Component React"
+    _react2.default.createElement(
+      "div",
+      null,
+      "Home Component React"
+    ),
+    _react2.default.createElement(
+      "button",
+      { onClick: function onClick() {
+          return console.log("I'm Clicked");
+        } },
+      "Click Me"
+    )
   );
 };
 
