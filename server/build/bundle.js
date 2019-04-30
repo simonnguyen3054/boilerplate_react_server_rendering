@@ -7040,7 +7040,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _server = __webpack_require__(111);
 
-var _App = __webpack_require__(123);
+var _App = __webpack_require__(122);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -22761,8 +22761,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 122 */,
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
