@@ -1,7 +1,7 @@
 import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server";
-import Home from "./client/components/Home";
+import App from "./client/App";
 
 const app = express();
 
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  const content = renderToString(<Home/>);
+  const content = renderToString(<App/>);
   const html = `
     <html>
       <head></head>
