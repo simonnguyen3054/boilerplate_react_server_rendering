@@ -6,8 +6,8 @@ import renderer from "./helpers/renderer";
 //making public repo static
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send(renderer());
+app.get("*", (req, res) => {
+  res.send(renderer(req));
 });
 
 app.listen(3000, () => {

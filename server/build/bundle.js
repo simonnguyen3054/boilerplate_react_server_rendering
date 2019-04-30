@@ -80,7 +80,7 @@ var _express = __webpack_require__(2);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _renderer = __webpack_require__(5);
+var _renderer = __webpack_require__(3);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
@@ -92,8 +92,8 @@ var app = (0, _express2.default)();
 //making public repo static
 app.use(_express2.default.static("public"));
 
-app.get("/", function (req, res) {
-  res.send((0, _renderer2.default)());
+app.get("*", function (req, res) {
+  res.send((0, _renderer2.default)(req));
 });
 
 app.listen(3000, function () {
@@ -108,12 +108,53 @@ module.exports = require("express");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(4);
+
+var _reactRouterDom = __webpack_require__(6);
+
+var _Routes = __webpack_require__(10);
+
+var _Routes2 = _interopRequireDefault(_Routes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRouterDom.StaticRouter,
+    { location: req.path, context: {} },
+    _react2.default.createElement(_Routes2.default, null)
+  ));
+  return "\n    <html>\n      <head></head>\n      <body>\n        <div id=\"root\">" + content + "</div>\n        <script src=\"bundle.js\"></script>\n      </body>\n    </html>";
+};
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 4 */
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -122,8 +163,6 @@ module.exports = require("react-dom/server");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -131,50 +170,31 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Home = function Home() {
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(
+      "div",
+      null,
+      "Home Component React"
+    ),
+    _react2.default.createElement(
+      "button",
+      { onClick: function onClick() {
+          return console.log("I'm Clicked");
+        } },
+      "Click Me"
+    )
+  );
+};
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        null,
-        _react2.default.createElement(
-          "div",
-          null,
-          "App Component"
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return console.log("I'm Clicked");
-            } },
-          "Click Me"
-        )
-      );
-    }
-  }]);
-
-  return App;
-}(_react.Component);
-
-exports.default = App;
+exports.default = Home;
 
 /***/ }),
-/* 5 */
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -188,17 +208,20 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(3);
+var _reactRouterDom = __webpack_require__(6);
 
-var _App = __webpack_require__(4);
+var _Home = __webpack_require__(7);
 
-var _App2 = _interopRequireDefault(_App);
+var _Home2 = _interopRequireDefault(_Home);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var content = (0, _server.renderToString)(_react2.default.createElement(_App2.default, null));
-  return "\n    <html>\n      <head></head>\n      <body>\n        <div id=\"root\">" + content + "</div>\n        <script src=\"bundle.js\"></script>\n      </body>\n    </html>";
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _Home2.default })
+  );
 };
 
 /***/ })
